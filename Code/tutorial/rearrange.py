@@ -18,7 +18,7 @@ def string_reverse(word):
     return sliced_word
 
 def sentence_reverse(sentence):
-    reversed_sentence = string_reverse(sentence)
+    reversed_sentence = sentence[::-1]
     return ' '.join(reversed_sentence)
 
 if __name__ == "__main__":
