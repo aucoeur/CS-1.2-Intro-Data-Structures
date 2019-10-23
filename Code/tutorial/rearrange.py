@@ -9,7 +9,7 @@ def rearrange(words):
         random_word = choice(unshuffled)
         if random_word not in scrambled:
             scrambled.append(random_word)
-               
+                       
     return ' '.join(scrambled)
 
 def string_reverse(word):
