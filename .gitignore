@@ -1,5 +1,5 @@
 # Custom ignores
-*rearrange-ricky.py
+*__pycache__/
 
 # Created by https://www.gitignore.io/api/macos,python
 
