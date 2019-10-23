@@ -1,5 +1,4 @@
 import sys
-import os
 from random import choice
 
 def load_words():
