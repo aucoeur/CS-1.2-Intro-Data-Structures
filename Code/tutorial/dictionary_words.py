@@ -1,15 +1,24 @@
 import sys
-from random import choice
+from random import choice, randrange
+from utils import time_it
 
-def load_words():
+@time_it
+def load_words(filename):
     '''Reads txt file of words'''
 
     # with open('sample_words.txt', 'r') as f:
-    with open('/usr/share/dict/words', 'r') as f:
+    with open(filename, 'r') as f:
         read_data = f.read().splitlines()
-
     return read_data
 
+    #     all_lines = f.readlines()
+    #     lines = []
+    #     # for line in all_lines:
+    #     #     lines.append(line.strip())
+    #     lines = [line.strip() for line in all_lines]
+    # return lines
+
+@time_it
 def make_sentence(words_list, number):
     '''Makes sentence from word list'''
 
@@ -24,6 +33,7 @@ def make_sentence(words_list, number):
     print(f'{sentence}.')
 
 if __name__ == "__main__":
-    word_list = load_words()
+    filename = '/usr/share/dict/words'
+    word_list = load_words(filename)
     number = sys.argv[1]
     make_sentence(word_list, number)

@@ -2,13 +2,17 @@ from random import choice
 import sys
 
 def rearrange(words):
-    unshuffled = words
+    unshuffled = words.copy()
     scrambled = []
 
-    while len(scrambled) != len(unshuffled):
+    # while len(scrambled) != len(unshuffled):
+    #     random_word = choice(unshuffled)
+    #     if random_word not in scrambled:
+    #         scrambled.append(random_word)
+    while len(unshuffled) > 0:
         random_word = choice(unshuffled)
-        if random_word not in scrambled:
-            scrambled.append(random_word)
+        scrambled.append(random_word)
+        unshuffled.remove(random_word)
                        
     return ' '.join(scrambled)
 
