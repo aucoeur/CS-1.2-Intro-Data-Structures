@@ -59,9 +59,13 @@ def unique_words(histogram):
 def frequency(word, histogram):
     return histogram.get(word, 'Key doesn\'t exist')
 
+def sort(histogram):
+    sort_histo = sorted(histogram.items(), key = lambda item: item[1], reverse=True)
+    return sort_histo
+
 if __name__ == "__main__":
-    # text = 'sample_text.txt'
-    text = 'islandofdrmoreau.txt'
+    text = 'sample_text.txt'
+    # text = 'islandofdrmoreau.txt'
     source_text = load_text(text)
     histo = histogram(source_text)
     listo = listogram(source_text)
@@ -71,4 +75,7 @@ if __name__ == "__main__":
     # print(listo)
     # print(tuplo)
     # print(unique_words(histo))
-    # print(frequency('donations', histo))
+    # print(frequency('sugar', histo))
+    for each in sort(histo):
+        print(f"{each[0]}: {each[1]}")
+    
