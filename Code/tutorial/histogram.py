@@ -17,6 +17,7 @@ def histogram(source_text):
 
     histo = {}
     for word in source_text:
+        # No .append() for dict. To add new key to dict, use assignment operator with dict key.
         histo[word] = histo.get(word, 0) + 1
 
     return histo
@@ -53,6 +54,34 @@ def tuplogram(source_text):
 
     return histo
 
+# Stas' Zip method
+# def tuple_histogram(source_text):
+#     histogram = []
+#     word_frequencies = []
+#     add_word = True
+#     for word in source_text:
+#         if word not in histogram:
+#             histogram.append(word)
+#             word_frequencies.append(1)
+#         else:
+#             word_index = histogram.index(word)
+#             word_frequencies[word_index] += 1
+#     tuple_list = zip(histogram, word_frequencies)
+#     tuple_list = list(tuple_list)
+#     return tuple_list
+
+@time_it
+def countogram(source_text):
+    '''Turns source_text into list sorted by number of appearances'''
+
+    histo = histogram(source_text)
+    count_dict = {}
+
+    for key, value in histo.items():
+        count_dict.setdefault(value, []).append(key)
+
+    return sorted(count_dict.items(), reverse=True)
+        
 def unique_words(histogram):
     return len(histogram)
 
@@ -68,14 +97,14 @@ if __name__ == "__main__":
     # text = 'islandofdrmoreau.txt'
     source_text = load_text(text)
     histo = histogram(source_text)
-    listo = listogram(source_text)
-    tuplo = tuplogram(source_text)
-
-    print(histo)
+    # listo = listogram(source_text)
+    # tuplo = tuplogram(source_text)
+    print(countogram(source_text))
+    # print(histo)
     # print(listo)
     # print(tuplo)
     # print(unique_words(histo))
     # print(frequency('sugar', histo))
-    for each in sort(histo):
-        print(f"{each[0]}: {each[1]}")
-    
+    # for each in sort(histo):
+        # print(f"{each[0]}: {each[1]}")
+    # print(sort(histo))
