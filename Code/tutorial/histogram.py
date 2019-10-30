@@ -2,7 +2,7 @@ import sys
 from re import split, sub, IGNORECASE
 from utils import time_it
 
-@time_it
+# @time_it
 def load_text(filename):
     '''Reads file data, converts all words to lowercase, strips trailing punctuation and splits words into a list'''
     with open(filename, 'r') as f:
@@ -11,7 +11,7 @@ def load_text(filename):
         words = split(r'\s', strip_punc)
     return words
 
-@time_it
+# @time_it
 def histogram(source_text):
     '''Turns source_text into dictionary with word counts'''
 
