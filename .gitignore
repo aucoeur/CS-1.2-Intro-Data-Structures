@@ -1,5 +1,6 @@
 # Custom ignores
 *__pycache__/
+.vscode
 
 # Created by https://www.gitignore.io/api/macos,python
 
