@@ -1,5 +1,5 @@
 import sys
-from random import randint, choices
+from random import randint, choices, randrange
 from histogram import load_text, histogram
 
 def sampler(histo):
@@ -24,6 +24,24 @@ def sample_by_freq(histo):
 
     return f"{chosen_word}: {weighted_values[word_index]}"
 
+def no_choice_freq_sample(histo):
+
+    '''
+    use the pie chart/number line way
+    sum up in steps
+    dart = randint or randrange
+    '''
+
+    total = 0
+    dart = randint(0, sum(histo.values()))
+
+    for each in histo.items():
+        # print(f"Total: {total} + {each[1]}")
+        total += each[1]
+        if dart <= total:
+            # return f"Dart: {dart} | Word: {each[0]}"
+            return each[0]
+
 if __name__ == "__main__":
     text = 'sample_text2.txt'
     # text = 'islandofdrmoreau.txt'
@@ -35,7 +53,8 @@ if __name__ == "__main__":
     tracker = {}
     count = 0
     while count != 1000:
-        word = sample_by_freq(histo)     
+        # word = sample_by_freq(histo)
+        word = no_choice_freq_sample(histo)     
         # No .append() for dict. To add new key to dict, use assignment operator with dict key.
         tracker[word] = tracker.get(word, 0) + 1
         count += 1
