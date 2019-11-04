@@ -19,5 +19,6 @@ def sentence_generator():
         random_word = no_choice_freq_sample(histo)
         sentence.append(random_word)
 
-    sentence = " ".join(sentence).capitalize()
+    cap = " ".join(sentence).capitalize()
+    sentence = f"{cap}."
     return render_template('index.html', sentence=sentence)
