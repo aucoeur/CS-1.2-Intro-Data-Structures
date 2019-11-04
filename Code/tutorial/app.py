@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from random import randint
 from stochastic import no_choice_freq_sample
 from histogram import load_text, histogram
@@ -20,4 +20,4 @@ def sentence_generator():
         sentence.append(random_word)
 
     sentence = " ".join(sentence).capitalize()
-    return f'{sentence}.'
+    return render_template('index.html', sentence=sentence)
