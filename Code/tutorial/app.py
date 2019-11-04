@@ -7,10 +7,6 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
-    return "Hello Girl"
-
-@app.route('/gen')
 def sentence_generator():
     text = "islandofdrmoreau.txt"
     source_text = load_text(text)
