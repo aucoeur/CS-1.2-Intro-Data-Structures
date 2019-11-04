@@ -7,7 +7,7 @@ def load_text(filename):
     '''Reads file data, converts all words to lowercase, strips trailing punctuation and splits words into a list'''
     with open(filename, 'r') as f:
         read_data = f.read().lower()
-        strip_punc = sub('([a-z]+)[?:!.,;]*',r'\1', read_data)
+        strip_punc = sub('([?:!.,;"]*)([a-z]+)([?:!.,;"]*)',r'\2', read_data)
         words = split(r'\s', strip_punc)
     return words
 
