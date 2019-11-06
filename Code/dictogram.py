@@ -1,7 +1,7 @@
 #!python
 
 from __future__ import division, print_function  # Python 2 and 3 compatibility
-from random import randrange, randint, choices
+from random import randrange, randint, choices, uniform
 
 
 class Dictogram(dict):
@@ -32,16 +32,17 @@ class Dictogram(dict):
     def sample(self):
         """Return a word from this histogram, randomly sampled by weighting
         each word's probability of being chosen by its observed frequency."""
+
         total = 0
-        dart = randrange(0, self.tokens)
+        dart = uniform(0, self.tokens)
         
         for each in self.items():
             total += each[1]
             if dart <= total:
                 return each[0]
 
-        # choice returns more accurate results than the dart method using randint and randrange ????
-        
+        # choice returns more accurate results than the dart method using randint and randrange but uniform works ok?
+
         # histo_keys = [key for key in self]
         # total_tokens = self.tokens
 
