@@ -1,7 +1,7 @@
 #!python
 
 from __future__ import division, print_function  # Python 2 and 3 compatibility
-import random
+from random import randrange, randint, choices
 
 
 class Dictogram(dict):
@@ -32,27 +32,30 @@ class Dictogram(dict):
     def sample(self):
         """Return a word from this histogram, randomly sampled by weighting
         each word's probability of being chosen by its observed frequency."""
-        # total = 0
-        # dart = random.randint(0, self.tokens)
+        total = 0
+        dart = randrange(0, self.tokens)
         
-        # for each in self.items():
-        #     total += each[1]
-        #     if dart <= total:
-        #         return each[0]
-        histo_keys = [key for key in self]
-        total_tokens = self.tokens
+        for each in self.items():
+            total += each[1]
+            if dart <= total:
+                return each[0]
 
-        weighted_values = []
-        for value in self.values():
-            weighted = value / total_tokens
-            weighted_values.append(weighted)
-
-        weighted_choice = random.choices(histo_keys, weighted_values, k=1)
+        # choice returns more accurate results than the dart method using randint and randrange ????
         
-        chosen_word = "".join(weighted_choice)
-        word_index = histo_keys.index(chosen_word)
+        # histo_keys = [key for key in self]
+        # total_tokens = self.tokens
 
-        return chosen_word
+        # weighted_values = []
+        # for value in self.values():
+        #     weighted = value / total_tokens
+        #     weighted_values.append(weighted)
+
+        # weighted_choice = choices(histo_keys, weighted_values, k=1)
+        
+        # chosen_word = "".join(weighted_choice)
+        # word_index = histo_keys.index(chosen_word)
+
+        # return chosen_word
 
 def print_histogram(word_list):
     print()
