@@ -31,7 +31,7 @@ class Listogram(list):
         #     # self.types += count
         #     self.tokens += count
         #     self.types = len(self)
-        
+
         index = self.index_of(word)
         if index is not None:
             old_count = self[index][1]
@@ -63,6 +63,7 @@ class Listogram(list):
         for item in self:
             if item[0] == target:
                 return self.index(item)
+        return None
 
     def sample(self):
         """Return a word from this histogram, randomly sampled by weighting
