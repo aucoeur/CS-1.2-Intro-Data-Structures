@@ -28,8 +28,10 @@ class Listogram(list):
                 new_word = False 
         if new_word:
             self.append([word, count])
+            # self.types += count
             self.tokens += count
-            self.types += count
+            self.types = len(self)
+
 
     def frequency(self, word):
         """Return frequency count of given word, or 0 if word is not found."""
@@ -43,13 +45,13 @@ class Listogram(list):
         for item in self:
             if item[0] == word:
                 return True
-            return False
+        return False
 
     def index_of(self, target):
         """Return the index of entry containing given target word if found in
         this histogram, or None if target word is not found."""
         for item in self:
-            if item[0] == word:
+            if item[0] == target:
                 return self.index(item)
 
     def sample(self):
