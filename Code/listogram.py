@@ -20,18 +20,28 @@ class Listogram(list):
 
     def add_count(self, word, count=1):
         """Increase frequency count of given word by given count amount."""
-        new_word = True
-        for item in self:
-            if item[0] == word:
-                item[1] += count
-                self.tokens += count
-                new_word = False 
-        if new_word:
+        # new_word = True
+        # for item in self:
+        #     if item[0] == word:
+        #         item[1] += count
+        #         self.tokens += count
+        #         new_word = False 
+        # if new_word:
+        #     self.append([word, count])
+        #     # self.types += count
+        #     self.tokens += count
+        #     self.types = len(self)
+        
+        index = self.index_of(word)
+        if index is not None:
+            old_count = self[index][1]
+            new_count = old_count + count
+            self[index] = [word, new_count]
+        else:
             self.append([word, count])
-            # self.types += count
-            self.tokens += count
-            self.types = len(self)
+            self.types += 1
 
+        self.tokens += count
 
     def frequency(self, word):
         """Return frequency count of given word, or 0 if word is not found."""
