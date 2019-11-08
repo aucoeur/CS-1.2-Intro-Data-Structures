@@ -9,9 +9,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def sentence_generator():
-    text = "30rock.txt"
-    # text = "islandofdrmoreau.txt"
-    # text = "sample_text.txt"
+    # text = "static/corpus/30rock.txt"
+    # text = "static/corpus/islandofdrmoreau.txt"
+    text = "static/corpus/sample_text.txt"
+    # text = "static/corpus/rpdr.txt"
     source_text = load_text(text)
 
     # histo = histogram(source_text)
