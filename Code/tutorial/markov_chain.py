@@ -22,7 +22,7 @@ def random_word(markov, word):
     '''Takes given word and returns a random word in its markov list'''
     total_links = len(markov[word])
     if total_links >= 2:
-        random = randint(0, total_links-1)
+        random = randint(0, total_links-2) #janky fix to avoid picking last word
         if total_links == 1:
             random = randint(0, 1)
         chain = markov[word][random]

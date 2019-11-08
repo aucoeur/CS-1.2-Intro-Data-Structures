@@ -24,7 +24,9 @@ def sentence_generator():
 
     markov = make_markov(source_text)
 
-    init_word = choice([word for word in source_text if word != text[-1]])
+    #TODO: investigate why still returns last word occasionally? (temp janky fix with random_word randint total_links-2)
+    init_word = choice([word for word in source_text if word != source_text[-1]])
+
     word = random_word(markov, init_word)
 
     random_int = randint(3,10)
