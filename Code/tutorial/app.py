@@ -9,7 +9,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def sentence_generator():
-    text = "islandofdrmoreau.txt"
+    text = "30rock.txt"
+    # text = "islandofdrmoreau.txt"
     # text = "sample_text.txt"
     source_text = load_text(text)
 
