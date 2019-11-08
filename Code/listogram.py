@@ -40,7 +40,6 @@ class Listogram(list):
         # else:
         #     self.append([word, count])
         #     self.types += 1
-
         # self.tokens += count
 
     def frequency(self, word):
