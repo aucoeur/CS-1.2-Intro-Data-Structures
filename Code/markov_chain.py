@@ -1,7 +1,9 @@
 from random import randint, randrange, choice
 from format_text import load_text, cleanup_text, add_stop
 from dictogram import Dictogram
+from utils import time_it
 
+@time_it
 def find_pairs(corpus):
     '''Creates word pairs and puts them into a states dictionary'''
 
@@ -19,6 +21,7 @@ def find_pairs(corpus):
             markov_dict[first] = [second]
     return markov_dict
 
+@time_it
 def markov_histo(markov_dict):
     '''Creates histogram from markov dict'''
  
@@ -26,6 +29,7 @@ def markov_histo(markov_dict):
         markov_dict[key] = Dictogram(value)
     return markov_dict
 
+@time_it
 def stochastic_sample(markov, word):
     '''Gets a weighted random word from given word's histo'''
     histo = markov.get(word, 'NOPE')
@@ -45,6 +49,7 @@ def stochastic_sample(markov, word):
 #         chain = markov[word][0]
 #     return chain
 
+@time_it
 def random_walk(word, markov, steps):
     '''Given a starting word, picks a random word from markov list and walks to given number of steps to generate a sentence'''
 
@@ -62,8 +67,8 @@ def random_walk(word, markov, steps):
     return sentence
     
 if __name__ == "__main__":
-    file = 'static/corpus/sample_text.txt'
-    # file = 'islandofdrmoreau.txt'
+    # file = 'static/corpus/sample_text.txt'
+    file = 'static/corpus/islandofdrmoreau.txt'
     text = load_text(file)
     # print(text)
     clean = cleanup_text(text)
