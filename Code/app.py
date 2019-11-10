@@ -20,7 +20,7 @@ markov = markov_histo(formatted_corpus)
 @app.route('/')
 def index():
 
-    init_word = choice([word for word in formatted_corpus if word != formatted_corpus[:-1]])
+    init_word = choice([word for word in markov.keys() if word != '<STOP>'])
 
     word = stochastic_sample(markov, init_word)
     random_int = randint(3,12)
