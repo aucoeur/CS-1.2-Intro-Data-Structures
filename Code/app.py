@@ -23,7 +23,7 @@ def index():
     init_word = choice([word for word in markov.keys() if word != '<STOP>'])
 
     word = stochastic_sample(markov, init_word)
-    random_int = randint(3,12)
+    random_int = randint(5,15)
     output = random_walk(word, markov, random_int)
 
     sentence = structure_sentence(output)

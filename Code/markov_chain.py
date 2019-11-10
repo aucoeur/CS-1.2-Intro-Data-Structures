@@ -5,10 +5,10 @@ from utils import time_it
 
 # @time_it
 def markov_histo(corpus):
+    '''Creates markov chain with histogram'''
     markov_dict = {}
 
-    for i in range(len(corpus)-2):
-        
+    for i in range(len(corpus)-1):
         first = corpus[i]
         second = corpus[i+1]
 
@@ -27,18 +27,6 @@ def stochastic_sample(markov, word):
     if word in markov:
         return histo.sample()
  
-# def random_word(markov, word):
-#     '''Takes given word and returns a random word in its markov list'''
-#     total_links = len(markov[word])
-#     if total_links >= 2:
-#         random = randint(0, total_links-1) #janky fix to avoid picking last word
-#         if total_links == 1:
-#             random = randint(0, 1)
-#         chain = markov[word][random]
-#     else:
-#         chain = markov[word][0]
-#     return chain
-
 # @time_it
 def random_walk(word, markov, steps):
     '''Given a starting word, picks a random word from markov list and walks to given number of steps to generate a sentence'''
@@ -68,13 +56,12 @@ if __name__ == "__main__":
     # print(pairs)
 
     markov = markov_histo(endstop)
-    # print(markov)
+    print(markov)
     # sample = stochastic_sample(markov, "i")
     # print(sample)
 
     init_word = choice([word for word in endstop if word != endstop[:-1]])
     # init_word = 'i'
-    # word = random_word(markov, init_word)
     word = stochastic_sample(markov, init_word)
     random_int = randint(3,10)
     walk = random_walk(init_word, markov, random_int)

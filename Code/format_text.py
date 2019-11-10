@@ -9,9 +9,13 @@ def load_text(filename):
         
 def cleanup_text(corpus):
     corpus = corpus.lower()
-    strip_punc = sub('(["]*)([a-z]+)([?:!.,;"]*)',r'\2', corpus)
+    strip_punc = sub('([\-\()"]*)([a-z]+)([?:!.,;\-\)"]*)',r'\2', corpus)
     words = split(r'\s', strip_punc)
-    text = add_stop(words)
+    return words
+
+def add_start(text):
+    '''Adds an start signaler to last word'''
+    text.insert(0, '<START>')
     return text
 
 def add_stop(text):
