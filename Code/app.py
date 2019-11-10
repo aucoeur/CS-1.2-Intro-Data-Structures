@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from random import randint, choice
 from format_text import load_text, cleanup_text, add_stop, structure_sentence
-from markov_chain import find_pairs, markov_histo, stochastic_sample, random_walk
+from markov_chain import markov_histo, stochastic_sample, random_walk
 
 app = Flask(__name__)
 
@@ -15,8 +15,7 @@ source_text = load_text(text)
 cleaned = cleanup_text(source_text)
 formatted_corpus = add_stop(cleaned)
 
-pairs = find_pairs(formatted_corpus)
-markov = markov_histo(pairs)
+markov = markov_histo(formatted_corpus)
 
 @app.route('/')
 def index():

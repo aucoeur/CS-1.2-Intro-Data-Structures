@@ -4,31 +4,21 @@ from dictogram import Dictogram
 from utils import time_it
 
 @time_it
-def find_pairs(corpus):
-    '''Creates word pairs and puts them into a states dictionary'''
-
-    pairs = []
-
-    for i in range(len(corpus)-2):
-        pairs.append((corpus[i], corpus[i+1]))
-    
+def markov_histo(corpus):
     markov_dict = {}
 
-    for first, second in pairs:
-        if first in markov_dict.keys():
-            markov_dict[first].append(second)
-        else:
-            markov_dict[first] = [second]
-    return markov_dict
+    for i in range(len(corpus)-2):
+        
+        first = corpus[i]
+        second = corpus[i+1]
 
-@time_it
-def markov_histo(markov_dict):
-    '''Creates histogram from markov dict'''
- 
-    for key, value in markov_dict.items():
-        markov_dict[key] = Dictogram(value)
+        if first not in markov_dict.keys():
+            markov_dict[first] = Dictogram()
+        
+        markov_dict.get(first).add_count(second)
+    
     return markov_dict
-
+    
 @time_it
 def stochastic_sample(markov, word):
     '''Gets a weighted random word from given word's histo'''
@@ -67,20 +57,23 @@ def random_walk(word, markov, steps):
     return sentence
     
 if __name__ == "__main__":
-    # file = 'static/corpus/sample_text.txt'
-    file = 'static/corpus/islandofdrmoreau.txt'
+    file = 'static/corpus/sample_text.txt'
+    # file = 'static/corpus/islandofdrmoreau.txt'
     text = load_text(file)
     # print(text)
     clean = cleanup_text(text)
     endstop = add_stop(clean)
-    pairs = find_pairs(endstop)
+    # pairs = find_pairs(endstop)
+    # pairs = get_states(endstop)
     # print(pairs)
-    markov = markov_histo(pairs)
+
+    markov = markov_histo(endstop)
     # print(markov)
     # sample = stochastic_sample(markov, "i")
     # print(sample)
 
     init_word = choice([word for word in endstop if word != endstop[:-1]])
+    # init_word = 'i'
     # word = random_word(markov, init_word)
     word = stochastic_sample(markov, init_word)
     random_int = randint(3,10)
