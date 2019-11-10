@@ -1,5 +1,6 @@
 from random import randint, randrange, choice
 from histogram import load_text
+import dictogram
 
 def make_markov(corpus):
     '''Creates word pairs and puts them into a markov dictionary'''
@@ -22,7 +23,7 @@ def random_word(markov, word):
     '''Takes given word and returns a random word in its markov list'''
     total_links = len(markov[word])
     if total_links >= 2:
-        random = randint(0, total_links-2) #janky fix to avoid picking last word
+        random = randint(0, total_links-1) #janky fix to avoid picking last word
         if total_links == 1:
             random = randint(0, 1)
         chain = markov[word][random]
@@ -47,7 +48,7 @@ def random_walk(word, markov, steps):
     return sentence
     
 if __name__ == "__main__":
-    file = 'sample_text.txt'
+    file = '/static/corpus/sample_text.txt'
     # file = 'islandofdrmoreau.txt'
     text = load_text(file)
     # print(text)
@@ -56,13 +57,13 @@ if __name__ == "__main__":
     # print(len(markov['i']))
     # print(text)
     # print(text[-1])
-    init_word = choice([word for word in text if word != text[-1]])
-    word = random_word(markov, init_word)
-    random_int = randint(3,9)
-    walk = random_walk(word, markov, random_int)
+    # init_word = choice([word for word in text if word != text[-1]])
+    # word = random_word(markov, init_word)
+    # random_int = randint(3,9)
+    # walk = random_walk(word, markov, random_int)
 
-    cap = " ".join(walk).capitalize()
-    print(f"{cap}.")
+    # cap = " ".join(walk).capitalize()
+    # print(f"{cap}.")
 
 
 
