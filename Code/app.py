@@ -1,41 +1,34 @@
 from flask import Flask, render_template
 from random import randint, choice
 from stochastic import no_choice_freq_sample
-from histogram import load_text, histogram
-from markov_chain import random_walk, random_word, make_markov
+from format_text import load_text, cleanup_text, add_stop, structure_sentence
+from markov_chain import find_pairs, markov_histo, stochastic_sample, random_walk
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def sentence_generator():
-    text = "static/corpus/30rock.txt"
+    # text = "static/corpus/30rock.txt"
     # text = "static/corpus/islandofdrmoreau.txt"
     # text = "static/corpus/sample_text.txt"
     # text = "static/corpus/rpdr.txt"
+    text = "static/corpus/simpsons.txt"
+
     source_text = load_text(text)
+    cleaned = cleanup_text(source_text)
+    formatted_corpus = add_stop(cleaned)
 
-    # histo = histogram(source_text)
+    pairs = find_pairs(formatted_corpus)
+    markov = markov_histo(pairs)
 
-    # sentence = []
-    # sentence_length = randint(5, 15)
+    init_word = choice([word for word in formatted_corpus if word != formatted_corpus[:-1]])
 
-    # while len(sentence) != int(sentence_length):
-    #     random_word = no_choice_freq_sample(histo)
-    #     sentence.append(random_word)
+    word = stochastic_sample(markov, init_word)
+    random_int = randint(3,12)
+    output = random_walk(word, markov, random_int)
 
-    markov = make_markov(source_text)
-
-    #TODO: investigate why still returns last word occasionally? (temp janky fix with random_word randint total_links-2)
-    init_word = choice([word for word in source_text if word != source_text[-1]])
-
-    word = random_word(markov, init_word)
-
-    random_int = randint(3,10)
-    sentence = random_walk(word, markov, random_int)
-
-    cap = " ".join(sentence).capitalize()
-    sentence = f"{cap}."
+    sentence = structure_sentence(output)
 
     return render_template('index.html', sentence=sentence)
 
