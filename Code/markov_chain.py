@@ -56,7 +56,7 @@ if __name__ == "__main__":
     # print(pairs)
 
     markov = markov_histo(endstop)
-    print(markov)
+    # print(markov)
     # sample = stochastic_sample(markov, "i")
     # print(sample)
 
