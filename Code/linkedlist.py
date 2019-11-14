@@ -96,15 +96,16 @@ class LinkedList(object):
         TODO: Worst case running time: O(???) Why and under what conditions?"""
         # TODO: Loop through all nodes to find item where quality(item) is True
         # TODO: Check if node's data satisfies given quality function
+
         node = self.head
-        while node != None:
-            if node.data == quality:
+
+        while node is not None:
+            if quality(node.data):
                 return node.data
             else:
                 node = node.next
-        return 'Not in list'
-
-
+        return None
+        
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
         TODO: Best case running time: O(???) Why and under what conditions?
@@ -113,13 +114,33 @@ class LinkedList(object):
         # TODO: Update previous node to skip around node with matching data
         # TODO: Otherwise raise error to tell user that delete has failed
         # Hint: raise ValueError('Item not found: {}'.format(item))
-        current_node = self.head
-        previous_node = None
 
-        for node in self.items():
-            if item == node.data:
-                node.next 
-            raise ValueError('Item not found: {}'.format(item))
+        current = self.head
+        previous = None
+
+        while current is not None:
+            # OFF WITH THE HEAD
+            if item == current.data:
+                if previous is None:
+                    self.head = current.next
+                    # HEAD BUTT
+                    if current.next is None:
+                        self.tail = previous
+                # JUNK THE TRUNK
+                elif current.next is None:
+                    previous.next = None
+                    self.tail = previous
+                # THE NEUROTYPICALS
+                else:
+                    previous.next = current.next
+                return None
+            # ADVANCING THE GAY AGENDA
+            else:
+                previous = current
+                current = current.next
+
+        raise ValueError('Item not found: {}'.format(item)) 
+
 
 def test_linked_list():
     ll = LinkedList()
