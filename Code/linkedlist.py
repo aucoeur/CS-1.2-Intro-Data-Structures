@@ -32,6 +32,16 @@ class LinkedList(object):
     def __repr__(self):
         """Return a string representation of this linked list."""
         return 'LinkedList({!r})'.format(self.items())
+    
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        current = self.head
+
+        while current.next is not None:
+            yield current
+            current = current.next
 
     def items(self):
         """Return a list (dynamic array) of all items in this linked list.
@@ -105,6 +115,19 @@ class LinkedList(object):
             else:
                 node = node.next
         return None
+    
+    def replace(self, item, new):
+        """Replace item with new item"""
+
+        node = self.head
+
+        while node is not None:
+            if node.data == item:
+                node.data = new
+                return
+            else:
+                node = node.next
+
         
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
@@ -119,8 +142,8 @@ class LinkedList(object):
         previous = None
 
         while current is not None:
-            # OFF WITH THE HEAD
             if item == current.data:
+                # OFF WITH THE HEAD
                 if previous is None:
                     self.head = current.next
                     # HEAD BUTT
