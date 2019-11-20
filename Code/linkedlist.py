@@ -1,6 +1,5 @@
 #!python
 
-
 class Node(object):
 
     def __init__(self, data):
@@ -11,7 +10,6 @@ class Node(object):
     def __repr__(self):
         """Return a string representation of this node."""
         return 'Node({!r})'.format(self.data)
-
 
 class LinkedList(object):
 
