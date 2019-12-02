@@ -125,8 +125,7 @@ class LinkedList(object):
                 return
             else:
                 node = node.next
-
-        
+            
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
         TODO: Best case running time: O(1) if item is the self.head
