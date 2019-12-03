@@ -1,6 +1,7 @@
 #!python
 
 from linkedlist import LinkedList
+from utils import time_it
 
 class HashTable(object):
 
@@ -23,6 +24,7 @@ class HashTable(object):
         # Calculate the given key's hash code and transform into bucket index
         return hash(key) % len(self.buckets)
 
+    @time_it
     def keys(self):
         """Return a list of all keys in this hash table.
         TODO: Running time: O(n) Because it loops through all buckets and the items in the buckets """
@@ -34,6 +36,7 @@ class HashTable(object):
                 all_keys.append(key)
         return all_keys
 
+    @time_it
     def values(self):
         """Return a list of all values in this hash table.
         TODO: Running time: O(n) Because it loops through all buckets and the items in the buckets """
@@ -46,6 +49,7 @@ class HashTable(object):
                 all_values.append(value)
         return all_values
 
+    @time_it
     def items(self):
         """Return a list of all items (key-value pairs) in this hash table.
         TODO: Running time: O(n) Because it loops through all buckets and adds all the items in the buckets"""
@@ -56,6 +60,7 @@ class HashTable(object):
             all_items.extend(bucket.items())
         return all_items
 
+    @time_it
     def length(self):
         """Return the number of key-value entries by traversing its buckets.
         TODO: Running time: O(n) Because it loops through all buckets and counts all the items in the buckets"""
@@ -69,9 +74,10 @@ class HashTable(object):
                 count += 1
         return count
 
+    @time_it
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
-        TODO: Running time: O(n) Because it finds the index of the bucket and finds the key in the linkedlist"""
+        TODO: Running time: O(l) or O(n/b) Because it finds the index of the bucket and finds the key in the linkedlist"""
         # TODO: Find bucket where given key belongs
         # TODO: Check if key-value entry exists in bucket
 
@@ -80,17 +86,17 @@ class HashTable(object):
         
         if item is not None:
             return True
-        else:
-            return False
+        return False
 
         # for item, value in bucket.items():
         #     if item == key:
         #         return True
         # return False
 
+    @time_it
     def get(self, key):
         """Return the value associated with the given key, or raise KeyError.
-        TODO: Running time: O(1) Because it finds the index of the bucket and finds the key in the linkedlist"""
+        TODO: Running time: O(l) or O(n/b) Because it finds the index of the bucket and finds the key in the linkedlist"""
         # TODO: Find bucket where given key belongs
         # TODO: Check if key-value entry exists in bucket
         # TODO: If found, return value associated with given key
@@ -101,17 +107,17 @@ class HashTable(object):
 
         if self.contains(key):
             return item[1]
-        else:
-            raise KeyError('Key not found: {}'.format(key))
+        raise KeyError('Key not found: {}'.format(key))
 
         # for item, value in bucket.items():
         #     if item == key:
         #         return value
         # raise KeyError('Key not found: {}'.format(key))
-             
+
+    @time_it             
     def set(self, key, value):
         """Insert or update the given key with its associated value.
-        TODO: Running time: O(1) Because it finds the index of the bucket and finds the key in the linkedlist and performs the action on it without traversal"""
+        TODO: Running time: O(l) or O(n/b) Because it finds the index of the bucket and finds the key in the linkedlist and performs the action on it without traversal"""
         # TODO: Find bucket where given key belongs
         # TODO: Check if key-value entry exists in bucket
         # TODO: If found, update value associated with given key
@@ -125,6 +131,7 @@ class HashTable(object):
         else:
             bucket.append((key, value))
 
+    @time_it
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
         TODO: Running time: O(1) Because it finds the index of the bucket and finds the key in the linkedlist"""
