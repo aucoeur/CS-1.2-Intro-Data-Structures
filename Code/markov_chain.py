@@ -43,6 +43,11 @@ def stochastic_sample(markov, word):
     
     if word in markov:
         return histo.sample()
+
+def get_states(word, markov):
+    '''Gets states with word as first in tuple'''
+    state = [state for state in markov.keys() if word == state[0]]
+    return state
  
 # @time_it
 def random_walk(word, markov, steps):
@@ -54,8 +59,10 @@ def random_walk(word, markov, steps):
     while i != steps:
         sentence.append(word)
         next_word = stochastic_sample(markov, word)
+
         if next_word == '<STOP>':
             break
+        
         word = next_word
         i += 1
         
@@ -76,13 +83,18 @@ if __name__ == "__main__":
     # print(markov)
     # sample = stochastic_sample(markov, ("i", "like"))
     # print(sample)
-
+    states = get_states('cats', markov)
+    # print(states)
+    rand_state = choice(states)
+    print(rand_state[1])
     # init_word = choice([word for word in endstop if word != endstop[:-1]])
-    init_word = ('i', 'like')
-    word = stochastic_sample(markov, init_word)
-    random_int = randint(3,10)
-    walk = random_walk(init_word, markov, random_int)
-    print(walk)
+    # init_word = ('i', 'like')
+    init_word = rand_state[1]
+    # word = stochastic_sample(markov, init_word)
+    # random_int = randint(3,10)
+    # walk = random_walk(init_word, markov, random_int)
+    walk = random_walk(init_word, markov, 6)
+    # print(walk)
 
     # cap = " ".join(walk).capitalize()
     # print(f"{cap}.")
