@@ -8,15 +8,32 @@ def markov_histo(corpus):
     '''Creates markov chain with histogram'''
     markov_dict = {}
 
+    # First Order Markov
+    # for i in range(len(corpus)-1):
+    #     first = corpus[i]
+    #     second = corpus[i+1]
+
+    #     if first not in markov_dict.keys():
+    #         markov_dict[first] = Dictogram()
+        
+    #     markov_dict.get(first).add_count(second)
+    
+    # return markov_dict
+
+    # 2nd Order Markov
     for i in range(len(corpus)-1):
         first = corpus[i]
         second = corpus[i+1]
-
-        if first not in markov_dict.keys():
-            markov_dict[first] = Dictogram()
         
-        markov_dict.get(first).add_count(second)
-    
+        if second != '<STOP>':
+            third = corpus[i+2]
+            
+            key = (first, second)    
+            if key not in markov_dict.keys():
+                markov_dict[key] = Dictogram()
+            
+            markov_dict.get(key).add_count(third)
+        
     return markov_dict
 
 # @time_it
@@ -45,7 +62,7 @@ def random_walk(word, markov, steps):
     return sentence
     
 if __name__ == "__main__":
-    file = 'static/corpus/sample_text.txt'
+    file = 'static/corpus/sample_text2.txt'
     # file = 'static/corpus/islandofdrmoreau.txt'
     text = load_text(file)
     # print(text)
@@ -57,17 +74,18 @@ if __name__ == "__main__":
 
     markov = markov_histo(endstop)
     # print(markov)
-    # sample = stochastic_sample(markov, "i")
+    # sample = stochastic_sample(markov, ("i", "like"))
     # print(sample)
 
-    init_word = choice([word for word in endstop if word != endstop[:-1]])
-    # init_word = 'i'
+    # init_word = choice([word for word in endstop if word != endstop[:-1]])
+    init_word = ('i', 'like')
     word = stochastic_sample(markov, init_word)
     random_int = randint(3,10)
     walk = random_walk(init_word, markov, random_int)
+    print(walk)
 
-    cap = " ".join(walk).capitalize()
-    print(f"{cap}.")
+    # cap = " ".join(walk).capitalize()
+    # print(f"{cap}.")
 
 
 
