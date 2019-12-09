@@ -8,18 +8,19 @@ def markov_histo(corpus):
     '''Creates markov chain with histogram'''
     markov_dict = {}
 
-    # First Order Markov
-    # for i in range(len(corpus)-1):
-    #     first = corpus[i]
-    #     second = corpus[i+1]
+    First Order Markov
+    for i in range(len(corpus)-1):
+        first = corpus[i]
+        second = corpus[i+1]
 
-    #     if first not in markov_dict.keys():
-    #         markov_dict[first] = Dictogram()
+        if first not in markov_dict.keys():
+            markov_dict[first] = Dictogram()
         
-    #     markov_dict.get(first).add_count(second)
+        markov_dict.get(first).add_count(second)
     
-    # return markov_dict
+    return markov_dict
 
+def narkov_histo(corpus):
     # 2nd Order Markov
     for i in range(len(corpus)-1):
         first = corpus[i]
@@ -36,6 +37,17 @@ def markov_histo(corpus):
         
     return markov_dict
 
+def get_states(word, markov):
+    '''Gets states with word as first in tuple'''
+    states = [state for state in markov.keys() if word == state[0]]
+    return states
+
+def queue(word, markov, order):
+    '''Updates queue'''
+    queue = []
+    queue.extend()
+
+
 # @time_it
 def stochastic_sample(markov, word):
     '''Gets a weighted random word from given word's histo'''
@@ -43,16 +55,11 @@ def stochastic_sample(markov, word):
     
     if word in markov:
         return histo.sample()
-
-def get_states(word, markov):
-    '''Gets states with word as first in tuple'''
-    state = [state for state in markov.keys() if word == state[0]]
-    return state
  
 # @time_it
 def random_walk(word, markov, steps):
     '''Given a starting word, picks a random word from markov list and walks to given number of steps to generate a sentence'''
-
+    
     sentence = []
 
     i = 0
@@ -79,14 +86,15 @@ if __name__ == "__main__":
     # pairs = get_states(endstop)
     # print(pairs)
 
-    markov = markov_histo(endstop)
-    # print(markov)
+    # markov = markov_histo(endstop)
+    markov = narkov_histo(endstop)
+    print(f"Markov Dicto: {markov}")
     # sample = stochastic_sample(markov, ("i", "like"))
     # print(sample)
     states = get_states('cats', markov)
-    # print(states)
+    print(f"States: {states}")
     rand_state = choice(states)
-    print(rand_state[1])
+    print(f"Random State: {rand_state[1]}")
     # init_word = choice([word for word in endstop if word != endstop[:-1]])
     # init_word = ('i', 'like')
     init_word = rand_state[1]
@@ -94,7 +102,7 @@ if __name__ == "__main__":
     # random_int = randint(3,10)
     # walk = random_walk(init_word, markov, random_int)
     walk = random_walk(init_word, markov, 6)
-    # print(walk)
+    print(walk)
 
     # cap = " ".join(walk).capitalize()
     # print(f"{cap}.")
