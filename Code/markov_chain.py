@@ -8,7 +8,7 @@ def markov_histo(corpus):
     '''Creates markov chain with histogram'''
     markov_dict = {}
 
-    First Order Markov
+    # First Order Markov
     for i in range(len(corpus)-1):
         first = corpus[i]
         second = corpus[i+1]
