@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from random import randint, choice
 from format_text import load_text, cleanup_text, add_stop, structure_sentence
-from markov_chain import markov_histo, stochastic_sample, random_walk
+from markov_chain import narkov_histo, random_walk
 
 app = Flask(__name__)
 
