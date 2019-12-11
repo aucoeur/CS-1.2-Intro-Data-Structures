@@ -66,19 +66,18 @@ def random_walk(word, markov, steps):
     
     i = 0
     while i != steps:
-        # sentence.append(word)
-        # next_word = stochastic_sample(markov, word)
         states = get_states(word, markov)
         # print(f"States: {states}")
         rand_state = choice(states)
         # print(f"Random State: {rand_state}")
         
         next_word = rand_state[1]
+        
         if len(q) == 3:
             entry = q.dequeue()
             sentence.append(entry)
         q.enqueue(next_word)
-        # print(f'Queue: {q}')
+        print(f'Queue: {q}')
         
         next_word = stochastic_sample(markov, rand_state)
         # print(f"Sample: {sample}")

@@ -20,7 +20,7 @@ markov = narkov_histo(formatted_corpus)
 @app.route('/')
 def index():
 
-    init_word = "the"
+    init_word = "I"
     random_int = randint(5,15)
     output = random_walk(init_word, markov, random_int)
 
