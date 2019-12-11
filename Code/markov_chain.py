@@ -1,6 +1,8 @@
+from queue import Queue
 from random import randint, randrange, choice
 from format_text import load_text, cleanup_text, add_stop
 from dictogram import Dictogram
+
 from utils import time_it
 
 # @time_it
@@ -21,6 +23,10 @@ def markov_histo(corpus):
     return markov_dict
 
 def narkov_histo(corpus):
+    '''Creates an n-th order markov chain with histogram'''
+
+    markov_dict = {}
+    
     # 2nd Order Markov
     for i in range(len(corpus)-1):
         first = corpus[i]
@@ -42,18 +48,12 @@ def get_states(word, markov):
     states = [state for state in markov.keys() if word == state[0]]
     return states
 
-def queue(word, markov, order):
-    '''Updates queue'''
-    queue = []
-    queue.extend()
-
-
 # @time_it
-def stochastic_sample(markov, word):
+def stochastic_sample(markov, item):
     '''Gets a weighted random word from given word's histo'''
-    histo = markov.get(word, 'NOPE')
+    histo = markov.get(item, 'NOPE')
     
-    if word in markov:
+    if item in markov:
         return histo.sample()
  
 # @time_it
@@ -61,11 +61,35 @@ def random_walk(word, markov, steps):
     '''Given a starting word, picks a random word from markov list and walks to given number of steps to generate a sentence'''
     
     sentence = []
-
+    q = Queue()
+    q.enqueue(word)
+    
     i = 0
     while i != steps:
-        sentence.append(word)
-        next_word = stochastic_sample(markov, word)
+        # sentence.append(word)
+        # next_word = stochastic_sample(markov, word)
+        states = get_states(word, markov)
+        # print(f"States: {states}")
+        rand_state = choice(states)
+        # print(f"Random State: {rand_state}")
+        
+        next_word = rand_state[1]
+        if len(q) == 3:
+            entry = q.dequeue()
+            sentence.append(entry)
+        q.enqueue(next_word)
+        # print(f'Queue: {q}')
+        
+        sample = stochastic_sample(markov, rand_state)
+        # print(f"Sample: {sample}")
+
+        # next_word = rand_state[1]
+        next_word = sample
+        if len(q) == 3:
+            entry = q.dequeue()
+            sentence.append(entry)
+        q.enqueue(next_word)
+        # print(f'Queue: {q}\n')
 
         if next_word == '<STOP>':
             break
@@ -76,8 +100,9 @@ def random_walk(word, markov, steps):
     return sentence
     
 if __name__ == "__main__":
-    file = 'static/corpus/sample_text2.txt'
-    # file = 'static/corpus/islandofdrmoreau.txt'
+    # file = 'static/corpus/sample_text2.txt'
+    file = 'static/corpus/rpdr.txt'
+    # file = 'static/corpus/importbeingearnest.txt'
     text = load_text(file)
     # print(text)
     clean = cleanup_text(text)
@@ -88,24 +113,37 @@ if __name__ == "__main__":
 
     # markov = markov_histo(endstop)
     markov = narkov_histo(endstop)
-    print(f"Markov Dicto: {markov}")
-    # sample = stochastic_sample(markov, ("i", "like"))
-    # print(sample)
-    states = get_states('cats', markov)
-    print(f"States: {states}")
-    rand_state = choice(states)
-    print(f"Random State: {rand_state[1]}")
+    # print(f"Markov Dicto: {markov} \n")
+
+    init_word = 'i'
+    # states = get_states(init_word, markov)
+    # print(f"States: {states}")
+    # rand_state = choice(states)
+    # print(f"Random State: {rand_state}")
+
+    # sample = stochastic_sample(markov, rand_state)
+    # print(f"Sample: {sample}")
+
+    # # next_word = rand_state[1]
+    # next_word = sample
+    # q = Queue()
+    # if len(q) == 2:
+    #     q.dequeue()
+    # enq = q.enqueue(next_word)
+    # print(f'Queue: {q}')
+
+
     # init_word = choice([word for word in endstop if word != endstop[:-1]])
     # init_word = ('i', 'like')
-    init_word = rand_state[1]
+    # init_word = rand_state[1]
     # word = stochastic_sample(markov, init_word)
-    # random_int = randint(3,10)
-    # walk = random_walk(init_word, markov, random_int)
-    walk = random_walk(init_word, markov, 6)
-    print(walk)
+    random_int = randint(3,12)
+    walk = random_walk(init_word, markov, random_int)
+    # walk = random_walk(init_word, markov, 6)
+    # print(walk)
 
-    # cap = " ".join(walk).capitalize()
-    # print(f"{cap}.")
+    cap = " ".join(walk).capitalize()
+    print(f"{cap}.")
 
 
 

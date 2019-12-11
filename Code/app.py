@@ -6,25 +6,23 @@ from markov_chain import markov_histo, stochastic_sample, random_walk
 app = Flask(__name__)
 
 # text = "static/corpus/30rock.txt"
-text = "static/corpus/islandofdrmoreau.txt"
+# text = "static/corpus/islandofdrmoreau.txt"
 # text = "static/corpus/sample_text.txt"
-# text = "static/corpus/rpdr.txt"
+text = "static/corpus/rpdr.txt"
 # text = "static/corpus/simpsons.txt"
 
 source_text = load_text(text)
 cleaned = cleanup_text(source_text)
 formatted_corpus = add_stop(cleaned)
 
-markov = markov_histo(formatted_corpus)
+markov = narkov_histo(formatted_corpus)
 
 @app.route('/')
 def index():
 
-    init_word = choice([word for word in markov.keys() if word != '<STOP>'])
-
-    word = stochastic_sample(markov, init_word)
+    init_word = "the"
     random_int = randint(5,15)
-    output = random_walk(word, markov, random_int)
+    output = random_walk(init_word, markov, random_int)
 
     sentence = structure_sentence(output)
 
