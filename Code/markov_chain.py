@@ -80,11 +80,9 @@ def random_walk(word, markov, steps):
         q.enqueue(next_word)
         # print(f'Queue: {q}')
         
-        sample = stochastic_sample(markov, rand_state)
+        next_word = stochastic_sample(markov, rand_state)
         # print(f"Sample: {sample}")
 
-        # next_word = rand_state[1]
-        next_word = sample
         if len(q) == 3:
             entry = q.dequeue()
             sentence.append(entry)
@@ -137,7 +135,7 @@ if __name__ == "__main__":
     # init_word = ('i', 'like')
     # init_word = rand_state[1]
     # word = stochastic_sample(markov, init_word)
-    random_int = randint(3,12)
+    random_int = randint(3,9)
     walk = random_walk(init_word, markov, random_int)
     # walk = random_walk(init_word, markov, 6)
     # print(walk)
