@@ -66,7 +66,7 @@ def random_walk(markov, steps):
     states = random_state(markov)
     q.enqueue(states[0])
     q.enqueue(states[1])
-    print(f'Queue: {q}')
+    # print(f'Queue: {q}')
 
     i = 2
     while i != steps:
@@ -76,29 +76,29 @@ def random_walk(markov, steps):
         
         # next_word = rand_state[1]
         next_word = stochastic_sample(markov, states)
-        print(f"Sample: {next_word}")
+        # print(f"Sample: {next_word}")
 
         if len(q) == 3:
             entry = q.dequeue()
             sentence.append(entry)
         q.enqueue(next_word)
-        print(f'Queue: {q}')
+        # print(f'Queue: {q}')
         
         next_state = (states[1], next_word)
         next_word = stochastic_sample(markov, next_state)
-        print(f"Sample: {next_word}")
+        # print(f"Sample: {next_word}")
 
         if len(q) == 3:
             entry = q.dequeue()
             sentence.append(entry)
         q.enqueue(next_word)
-        print(f'Queue: {q}\n')
+        # print(f'Queue: {q}\n')
 
         if next_word == '<STOP>':
             break
         
         states = (next_state[1], next_word)
-        print(f'{states}')
+        # print(f'{states}')
 
         i += 1
         
@@ -144,8 +144,9 @@ if __name__ == "__main__":
     # word = stochastic_sample(markov, init_word)
     # random_int = randint(3,9)
     # walk = random_walk(init_word, markov, random_int)
-    walk = random_walk(markov, 10)
-    # print(walk)
+    for i in range(15):
+        walk = random_walk(markov, 10)
+        # print(walk)
 
-    cap = " ".join(walk).capitalize()
-    print(f"{cap}.")
+        cap = " ".join(walk).capitalize()
+        print(f"{cap}.")

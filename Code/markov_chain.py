@@ -77,16 +77,16 @@ def random_walk(word, markov, steps):
             entry = q.dequeue()
             sentence.append(entry)
         q.enqueue(next_word)
-        print(f'Queue: {q}')
+        # print(f'Queue: {q}')
         
         next_word = stochastic_sample(markov, rand_state)
-        print(f"Sample: {next_word}")
+        # print(f"Sample: {next_word}")
 
         if len(q) == 3:
             entry = q.dequeue()
             sentence.append(entry)
         q.enqueue(next_word)
-        print(f'Queue: {q}\n')
+        # print(f'Queue: {q}\n')
 
         if next_word == '<STOP>':
             break
@@ -134,13 +134,14 @@ if __name__ == "__main__":
     # init_word = ('i', 'like')
     # init_word = rand_state[1]
     # word = stochastic_sample(markov, init_word)
-    random_int = randint(3,9)
-    walk = random_walk(init_word, markov, random_int)
+    random_int = randint(3,12)
+    for i in range(15):
+        walk = random_walk(init_word, markov, random_int)
     # walk = random_walk(init_word, markov, 6)
     # print(walk)
 
-    cap = " ".join(walk).capitalize()
-    print(f"{cap}.")
+        cap = " ".join(walk).capitalize()
+        print(f"{cap}.")
 
 
 

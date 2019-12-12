@@ -1,7 +1,8 @@
 from flask import Flask, render_template
 from random import randint, choice
 from format_text import load_text, cleanup_text, add_stop, structure_sentence
-from markov_chain import narkov_histo, random_walk, get_states
+from narkov_chain_beta import narkov_histo, random_walk, random_state
+# from markov_chain import narkov_histo
 
 app = Flask(__name__)
 
@@ -20,9 +21,8 @@ markov = narkov_histo(formatted_corpus)
 @app.route('/')
 def index():
 
-    init_word = "i"
-    random_int = randint(5,15)
-    output = random_walk(init_word, markov, random_int)
+    random_int = randint(3,12)
+    output = random_walk(markov, random_int)
 
     sentence = structure_sentence(output)
 
