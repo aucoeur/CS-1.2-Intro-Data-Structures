@@ -9,10 +9,10 @@ def load_text(filename):
         
 def cleanup_text(corpus):
     # corpus = corpus.lower()
-    # strip_punc = sub('([\-\()"]*)([a-z]+)([?:!.,;\-\)"]*)',r'\2', corpus)
+    # strip_punc = sub('<\w+\s\w+=\w+>','', corpus)
     # strip_punc = sub('([\-\()"]*)([a-z]+\'?\\w*)([?:!.,;\-\)"]*)', r'\2', corpus)
     # strip_punc = sub('([\-\(\)\"]*)([a-z]+\'?\\w*)([\?\:\!\.\,\;\-\)\"]*)',r'\2', corpus)
-    words = split(r'\s', corpus)
+    # words = split(r'\s', strip_punc)
     return words
 
 def add_start(text):
