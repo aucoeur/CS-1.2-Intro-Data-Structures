@@ -57,56 +57,44 @@ def stochastic_sample(markov, item):
         return histo.sample()
  
 # @time_it
-def random_walk(markov, steps):
+def random_walk(markov, sentence_length):
     '''Given a starting word, picks a random word from markov list and walks to given number of steps to generate a sentence'''
     
     sentence = []
     q = Queue()
     
-    states = random_state(markov)
-    q.enqueue(states[0])
-    q.enqueue(states[1])
+    state = random_state(markov)
+    q.enqueue(state[0])
+    sentence.append(state[0])
+    q.enqueue(state[1])
+    sentence.append(state[1])
     # print(f'Queue: {q}')
 
     i = 2
-    while i != steps:
-        # print(f"States: {states}")
-        # rand_state = choice(states)
-        # print(f"Random State: {rand_state}")
-        
-        # next_word = rand_state[1]
-        next_word = stochastic_sample(markov, states)
-        # print(f"Sample: {next_word}")
+    while i != sentence_length:
+        next_word = stochastic_sample(markov, state)
+        # print(f"Tuple: {state} | Sample: {next_word}")
 
         if len(q) == 3:
-            entry = q.dequeue()
-            sentence.append(entry)
+            q.dequeue()
         q.enqueue(next_word)
+        sentence.append(next_word)
         # print(f'Queue: {q}')
         
-        next_state = (states[1], next_word)
-        next_word = stochastic_sample(markov, next_state)
-        # print(f"Sample: {next_word}")
-
-        if len(q) == 3:
-            entry = q.dequeue()
-            sentence.append(entry)
-        q.enqueue(next_word)
-        # print(f'Queue: {q}\n')
-
+        state = (state[1], next_word)
+        # print(f'Tuple: {state}')
+        
         if next_word == '<STOP>':
             break
-        
-        states = (next_state[1], next_word)
-        # print(f'{states}')
 
         i += 1
-        
+
+    # print(sentence)
     return sentence
     
 if __name__ == "__main__":
     # file = 'static/corpus/sample_text2.txt'
-    file = 'static/corpus/rpdr.txt'
+    file = 'static/corpus/rpdr_full.txt'
     # file = 'static/corpus/importbeingearnest.txt'
     text = load_text(file)
     # print(text)
@@ -137,16 +125,15 @@ if __name__ == "__main__":
     # enq = q.enqueue(next_word)
     # print(f'Queue: {q}')
 
-
     # init_word = choice([word for word in endstop if word != endstop[:-1]])
     # init_word = ('i', 'like')
     # init_word = rand_state[1]
     # word = stochastic_sample(markov, init_word)
-    # random_int = randint(3,9)
+    random_int = randint(3,12)
     # walk = random_walk(init_word, markov, random_int)
-    for i in range(15):
-        walk = random_walk(markov, 10)
-        # print(walk)
+    # for i in range(15):
+    walk = random_walk(markov, random_int)
+    # print(walk)
 
-        cap = " ".join(walk).capitalize()
-        print(f"{cap}.")
+    cap = " ".join(walk).capitalize()
+    print(f"{cap}.")

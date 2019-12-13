@@ -8,11 +8,11 @@ def load_text(filename):
     return read_data    
         
 def cleanup_text(corpus):
-    corpus = corpus.lower()
+    # corpus = corpus.lower()
     # strip_punc = sub('([\-\()"]*)([a-z]+)([?:!.,;\-\)"]*)',r'\2', corpus)
     # strip_punc = sub('([\-\()"]*)([a-z]+\'?\\w*)([?:!.,;\-\)"]*)', r'\2', corpus)
-    strip_punc = sub('([\-\(\)\"]*)([a-z]+\'?\\w*)([\?\:\!\.\,\;\-\)\"]*)',r'\2', corpus)
-    words = split(r'\s', strip_punc)
+    # strip_punc = sub('([\-\(\)\"]*)([a-z]+\'?\\w*)([\?\:\!\.\,\;\-\)\"]*)',r'\2', corpus)
+    words = split(r'\s', corpus)
     return words
 
 def add_start(text):
