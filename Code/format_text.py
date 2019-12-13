@@ -13,7 +13,7 @@ def cleanup_text(corpus):
     # strip_punc = sub('([\-\()"]*)([a-z]+\'?\\w*)([?:!.,;\-\)"]*)', r'\2', corpus)
     # strip_punc = sub('([\-\(\)\"]*)([a-z]+\'?\\w*)([\?\:\!\.\,\;\-\)\"]*)',r'\2', corpus)
     # words = split(r'\s', strip_punc)
-    return words
+    return corpus
 
 def add_start(text):
     '''Adds an start signaler to last word'''
