@@ -9,7 +9,7 @@ app = Flask(__name__)
 # text = "static/corpus/30rock.txt"
 # text = "static/corpus/islandofdrmoreau.txt"
 # text = "static/corpus/sample_text.txt"
-text = "static/corpus/rpdr_full.txt"
+text = "static/corpus/rpdr.txt"
 # text = "static/corpus/simpsons.txt"
 
 source_text = load_text(text)
